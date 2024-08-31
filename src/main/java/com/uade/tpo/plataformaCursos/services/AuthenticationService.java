@@ -1,5 +1,6 @@
 package com.uade.tpo.plataformaCursos.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,8 +18,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
+    @Autowired
     private final UsuarioRepository repository;
     private final PasswordEncoder passwordEncoder;
+    @Autowired
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
