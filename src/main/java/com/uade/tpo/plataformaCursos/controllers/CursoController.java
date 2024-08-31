@@ -29,7 +29,6 @@ public class CursoController {
     
     @PostMapping("path")
     public Curso createCurso (@RequestBody Curso entity) {
-
         return entity;
     }
     

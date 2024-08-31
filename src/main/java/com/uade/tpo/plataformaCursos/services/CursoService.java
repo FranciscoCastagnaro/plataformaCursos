@@ -3,6 +3,7 @@ package com.uade.tpo.plataformaCursos.services;
 import java.util.List;
 
 import com.uade.tpo.plataformaCursos.entity.Curso;
+import com.uade.tpo.plataformaCursos.entity.Profesor;
 
 public interface CursoService {
 
@@ -12,6 +13,6 @@ public interface CursoService {
                              String fechaInicio, 
                              Long categoria, 
                              int maxVacantes,
-                             Long profesor);
+                             Profesor profesor);
 
 }

@@ -18,46 +18,20 @@ import lombok.Data;
 // Clase @Entity -> Tabla
 // Instancia de @Entity -> Fila de nuestra tabla
 @Entity
-@Table(name = "cursos")
-public class Curso {
+@Table(name = "profesor")
+public class Profesor {
     
     // Constructor obligatorio para JPA
-    public Curso (String descripcion,
-                  String fechaInicio, 
-                  Long categoria, 
-                  int maxVacantes,
-                  Profesor profesor) 
-    {
-
-        this.descripcion = descripcion;
-        this.fechaInicio = fechaInicio;
-        this.categoria = categoria;
-        this.maxVacantes = maxVacantes;
-        this.vacantesDisponibles = maxVacantes; 
-        this.profesor = profesor;
-
-    }
+    public Profesor () {}
 
     @Id // Este atributo es mi primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ID Autoincremental
     private Long id;
 
     @Column
-    private String descripcion;
+    private String nombre;
 
     @Column
-    private String fechaInicio;
-
-    @Column
-    private Long categoria;
-
-    @Column
-    private int maxVacantes;
-
-    @Column
-    private int vacantesDisponibles;
-
-    @Column
-    private Profesor profesor;
+    private String apellido;
 
 }
