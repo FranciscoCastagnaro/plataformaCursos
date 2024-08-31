@@ -21,4 +21,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
     @Query(value = "SELECT C FROM cursos c WHERE descripcion = $1")
     List<Curso> findByDescripcion(String descripcion);
 
+    @Query(value = "SELECT C FROM cursos c WHERE vacantesDisponibles is not NULL")
+    List<Curso> findByCapacity(int vacantesDisponibles);
+
 }
