@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uade.tpo.plataformaCursos.entity.Curso;
+import com.uade.tpo.plataformaCursos.exceptions.CursoDuplicadoException;
 import com.uade.tpo.plataformaCursos.services.CursoService;
 
 
@@ -28,8 +29,12 @@ public class CursoController {
     }
     
     @PostMapping("path")
-    public Curso createCurso (@RequestBody Curso entity) {
-        return entity;
+    public ResponseEntity<Object> createCurso (@RequestBody Curso curso) throws CursoDuplicadoException {
+        return ResponseEntity.ok(cursoService.createCurso(curso.getDescripcion(),
+                                                          curso.getFechaInicio(),
+                                                          curso.getCategoria(),
+                                                          curso.getMaxVacantes(),
+                                                          curso.getProfesor()));
     }
     
 

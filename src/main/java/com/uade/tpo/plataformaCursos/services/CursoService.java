@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.uade.tpo.plataformaCursos.entity.Curso;
 import com.uade.tpo.plataformaCursos.entity.Profesor;
+import com.uade.tpo.plataformaCursos.exceptions.CursoDuplicadoException;
 
 public interface CursoService {
 
@@ -13,6 +14,7 @@ public interface CursoService {
                              String fechaInicio, 
                              Long categoria, 
                              int maxVacantes,
-                             Profesor profesor);
+                             Profesor profesor)
+                            throws CursoDuplicadoException;
 
 }

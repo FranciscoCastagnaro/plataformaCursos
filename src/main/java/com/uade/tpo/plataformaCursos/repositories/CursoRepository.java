@@ -16,6 +16,9 @@ import com.uade.tpo.plataformaCursos.entity.Curso;
 public interface CursoRepository extends JpaRepository<Curso, Long> {
  
     @Query(value = "SELECT c FROM cursos c")
-    List<Curso>getCursos();
+    List<Curso> getCursos();
+
+    @Query(value = "SELECT C FROM cursos c WHERE descripcion = $1")
+    List<Curso> findByDescripcion(String descripcion);
 
 }

@@ -13,7 +13,7 @@ import com.uade.tpo.plataformaCursos.entity.Usuario;
 // Va a ser mi capa de persistencia (base de datos)
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
- 
+    
     Optional<Usuario> findByEmail(String email);
 
 }
