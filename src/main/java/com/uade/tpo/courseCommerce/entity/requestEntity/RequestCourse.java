@@ -9,7 +9,10 @@ public class RequestCourse {
 
     private String startDate;
 
-    
+    private String category;
 
+    private int maxSlots;
+
+    private String teacher;
 
 }

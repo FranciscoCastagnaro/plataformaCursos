@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uade.tpo.courseCommerce.entity.Course;
+import com.uade.tpo.courseCommerce.entity.requestEntity.RequestCourse;
 import com.uade.tpo.courseCommerce.exception.DuplicatedCourseException;
 import com.uade.tpo.courseCommerce.service.CourseService;
 
@@ -29,7 +30,7 @@ public class CourseController {
     }
     
     @PostMapping
-    public ResponseEntity<Object> createCurso (@RequestBody Course course) throws DuplicatedCourseException {
+    public ResponseEntity<Object> createCurso (@RequestBody RequestCourse course) throws DuplicatedCourseException {
         return ResponseEntity.ok(courseService.createCurso(course.getDescription(),
                                                            course.getStartDate(),
                                                            course.getCategory(),
