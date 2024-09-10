@@ -16,12 +16,13 @@ import lombok.NoArgsConstructor;
 
 // Data permite que nuestra clase disponga de getters y setters
 // sin necesidad de definirlos
-@Data
+
 
 // Entity es un bean que representa una entidad
 // en nuestra base de datos
 // Clase @Entity -> Tabla
 // Instancia de @Entity -> Fila de nuestra tabla
+@Data
 @Entity
 @NoArgsConstructor
 @Table(name = "courses")
@@ -63,11 +64,13 @@ public class Course {
     @Column
     private int availableSlots;
 
+
     @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
 
     @ManyToMany(mappedBy = "courses")
     private List<User> students;
+
 
 }
