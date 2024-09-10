@@ -32,16 +32,14 @@ public class Course {
                   String startDate, 
                   Category category, 
                   int maxSlots,
-                  Teacher teacher) 
+                  String teacher) 
     {
-
         this.description = description;
         this.startDate = startDate;
         this.category = category;
         this.maxSlots = maxSlots;
         this.availableSlots = maxSlots; 
         this.teacher = teacher;
-
     }
 
     @Id // Este atributo es mi primary key
@@ -62,15 +60,12 @@ public class Course {
     private int maxSlots;
 
     @Column
+    private String teacher;
+
+    @Column
     private int availableSlots;
-
-
-    @ManyToOne
-    @JoinColumn(name = "teacher_id", nullable = false)
-    private Teacher teacher;
 
     @ManyToMany(mappedBy = "courses")
     private List<User> students;
-
 
 }

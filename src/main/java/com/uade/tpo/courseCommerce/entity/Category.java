@@ -22,7 +22,11 @@ import lombok.Data;
 public class Category {
     
     // Constructor obligatorio para JPA
-    public Category () {}
+    public Category(){}
+
+    public Category (String description) {
+        this.description = description;
+    }
 
     @Id // Este atributo es mi primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ID Autoincremental

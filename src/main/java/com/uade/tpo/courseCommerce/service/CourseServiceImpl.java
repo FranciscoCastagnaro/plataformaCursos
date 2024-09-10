@@ -1,5 +1,6 @@
 package com.uade.tpo.courseCommerce.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.uade.tpo.courseCommerce.entity.Category;
 import com.uade.tpo.courseCommerce.entity.Course;
-import com.uade.tpo.courseCommerce.entity.Teacher;
 import com.uade.tpo.courseCommerce.exception.DuplicatedCourseException;
+import com.uade.tpo.courseCommerce.repository.CategoryRepository;
 import com.uade.tpo.courseCommerce.repository.CourseRepository;
 
 
@@ -18,6 +19,9 @@ public class CourseServiceImpl implements CourseService {
     
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private CategoryRepository categoryRespository;
 
     @Override
     public List<Course> getCursos() {   
@@ -36,7 +40,17 @@ public class CourseServiceImpl implements CourseService {
 
         List<Course> foundedCourses = courseRepository.findByDescripcion(description);
         if (!foundedCourses.isEmpty()) throw new DuplicatedCourseException();
-        Course newCurso = new Course(description, startDate, new Category(), maxSlots, new Teacher());
+
+        ArrayList<Category> foundedCategory = categoryRespository.getByDescription(category);
+        Category newCategory;
+        if (foundedCategory.isEmpty()) {
+            newCategory = new Category(category);
+            categoryRespository.save(newCategory);
+        } else {
+            newCategory = foundedCategory.getFirst();
+        }
+
+        var newCurso = new Course(description, startDate, newCategory, maxSlots, teacher);
         courseRepository.save(newCurso);
         return newCurso;
 

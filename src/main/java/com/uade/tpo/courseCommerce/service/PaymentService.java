@@ -1,5 +1,5 @@
-package com.uade.tpo.courseCommerce.service;
+// package com.uade.tpo.courseCommerce.service;
 
-public interface PaymentService {
+// public interface PaymentService {
 
-}
+// }
