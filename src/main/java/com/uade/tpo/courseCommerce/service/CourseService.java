@@ -2,9 +2,7 @@ package com.uade.tpo.courseCommerce.service;
 
 import java.util.List;
 
-import com.uade.tpo.courseCommerce.entity.Category;
 import com.uade.tpo.courseCommerce.entity.Course;
-import com.uade.tpo.courseCommerce.entity.Teacher;
 import com.uade.tpo.courseCommerce.exception.DuplicatedCourseException;
 
 
@@ -16,9 +14,9 @@ public interface CourseService {
 
     public Course createCurso(String description,
                              String startDate, 
-                             Category category, 
+                             String category, 
                              int maxSlots,
-                             Teacher teacher)
+                             String teacher)
                             throws DuplicatedCourseException;
 
 }

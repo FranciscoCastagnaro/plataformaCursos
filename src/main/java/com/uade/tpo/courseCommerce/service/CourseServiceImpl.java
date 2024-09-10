@@ -28,16 +28,15 @@ public class CourseServiceImpl implements CourseService {
     @Transactional(rollbackFor = Throwable.class)
     public Course createCurso(String description,
                               String startDate, 
-                              Category category, 
+                              String category, 
                               int maxSlots,
-                              Teacher teacher)
+                              String teacher)
                             throws DuplicatedCourseException 
     {
 
         List<Course> foundedCourses = courseRepository.findByDescripcion(description);
         if (!foundedCourses.isEmpty()) throw new DuplicatedCourseException();
-
-        Course newCurso = new Course(description,startDate,category,maxSlots,teacher);
+        Course newCurso = new Course(description, startDate, new Category(), maxSlots, new Teacher());
         courseRepository.save(newCurso);
         return newCurso;
 
