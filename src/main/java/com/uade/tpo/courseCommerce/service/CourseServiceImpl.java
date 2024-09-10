@@ -36,7 +36,6 @@ public class CourseServiceImpl implements CourseService {
 
         List<Course> foundedCourses = courseRepository.findByDescripcion(description);
         if (!foundedCourses.isEmpty()) throw new DuplicatedCourseException();
-
         Course newCurso = new Course(description, startDate, new Category(), maxSlots, new Teacher());
         courseRepository.save(newCurso);
         return newCurso;
