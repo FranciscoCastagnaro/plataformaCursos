@@ -18,6 +18,12 @@ import lombok.Data;
 @Data
 public class Cart {
 
+    public Cart(){}
+
+    public Cart(User user){
+        this.user = user;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(nullable = false)

@@ -29,6 +29,7 @@ public class SecurityConfig {
                                 .authorizeHttpRequests(req -> 
                                                 req.requestMatchers("/auth/**").permitAll()
                                                 .requestMatchers("/courses/**").hasAnyAuthority(Role.USER.name())
+                                                .requestMatchers("/cart/**").hasAnyAuthority(Role.USER.name())
                                                 .anyRequest()
                                                 .authenticated())
                                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

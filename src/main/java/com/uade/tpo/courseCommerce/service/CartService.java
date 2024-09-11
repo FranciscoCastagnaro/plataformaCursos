@@ -6,6 +6,10 @@ import com.uade.tpo.courseCommerce.entity.Cart;
 
 public interface CartService {
 
-    public Optional<Cart> getByUserID (int userID);
+    public Optional<Cart> getByUserID (Long userID);
+
+    public Cart createCart(String username);
+
+    public Cart addToCart(String username, String course);
 
 }

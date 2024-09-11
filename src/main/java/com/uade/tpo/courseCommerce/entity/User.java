@@ -83,9 +83,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    // @OneToOne
-    // @JoinColumn(name="cart_id")
-    // private Cart cart;
-
+    
 }

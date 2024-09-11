@@ -12,6 +12,7 @@ import com.uade.tpo.courseCommerce.entity.Cart;
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
     @Query(value = "SELECT c FROM Cart c WHERE c.user = :userID")
-    Optional<Cart> getByUserID(int userID);
+    Optional<Cart> getByUserID(Long userID);
+
 
 }
