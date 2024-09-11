@@ -68,4 +68,5 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     private List<User> students;
 
+
 }
