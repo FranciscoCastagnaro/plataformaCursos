@@ -14,6 +14,6 @@ import com.uade.tpo.courseCommerce.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     
-    Optional<User> findByEmail(String email);
+    Optional<User> findByEmail(String email);  //busca un usuario por su correo electrónico y devuelve un Optional<User>
 
 }

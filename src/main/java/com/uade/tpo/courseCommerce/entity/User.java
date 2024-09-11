@@ -30,6 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 public class User implements UserDetails {
 
     @Id // Este atributo es mi primary key
@@ -50,36 +51,38 @@ public class User implements UserDetails {
     name = "courses_students", 
     joinColumns = @JoinColumn(name = "students_id"), 
     inverseJoinColumns = @JoinColumn(name = "course_id"))
+
     private List<Course> courses;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)   //indica que el campo role debe ser almacenado en la base de datos como una cadena de texto
     private Role role;    
 
+    //Devuelve una colección de autoridades concedidas al usuario
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
+    //Devuelve el nombre de usuario
     @Override
     public String getUsername() {
         return username;
     }
-
+    //Indica si la cuenta del usuario ha expirado. En este caso, siempre devuelve true
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
+    //Indica si la cuenta del usuario está bloqueada. En este caso, siempre devuelve true
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
+    //Indica si las credenciales del usuario han expirado. En este caso, siempre devuelve true
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
+    //Indica si la cuenta del usuario está habilitada. En este caso, siempre devuelve true
     @Override
     public boolean isEnabled() {
         return true;

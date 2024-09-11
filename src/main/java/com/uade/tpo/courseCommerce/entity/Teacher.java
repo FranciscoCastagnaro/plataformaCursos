@@ -18,6 +18,7 @@ import lombok.Data;
 // Clase @Entity -> Tabla
 // Instancia de @Entity -> Fila de nuestra tabla
 @Entity
+
 @Table(name = "teachers")
 public class Teacher {
     

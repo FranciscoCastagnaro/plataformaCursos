@@ -23,8 +23,10 @@ import lombok.NoArgsConstructor;
 // Clase @Entity -> Tabla
 // Instancia de @Entity -> Fila de nuestra tabla
 @Entity
-@NoArgsConstructor
-@Table(name = "courses")
+@NoArgsConstructor    //Genera un constructor sin parámetros
+@Table(name = "courses")  //Especifica el nombre de la tabla en la base de datos a la que se mapeará esta entidad, que en este caso es courses
+
+//este constructor se utiliza para crear instancias de Course con valores especificos
 public class Course {
     
     public Course (String description,
@@ -42,7 +44,8 @@ public class Course {
         this.teacher = teacher;
 
     }
-
+    
+    //campos de la clase Course
     @Id // Este atributo es mi primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ID Autoincremental
     private Long id;
@@ -52,8 +55,10 @@ public class Course {
 
     @Column
     private String startDate;
-
+    
+    //muchos cursos pueden estar asociados a una misma categoria o un mismo profesor
     @ManyToOne
+    //unir en la bd a la clave foranea category
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
@@ -66,7 +71,8 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
-
+    
+    //un curso puede tener muchos estudiantes y un estudiante puedo estae escrito a muchos cursos
     @ManyToMany(mappedBy = "courses")
     private List<User> students;
 
