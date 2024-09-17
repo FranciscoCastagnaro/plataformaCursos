@@ -62,6 +62,7 @@ public class CartServiceImpl implements CartService {
         Optional<Cart> cart = getByUserID(userID); //EN ESTA LINEA ESTA EL ERROR
 
         System.out.print("Encontro el carrito del usuario");
+
         Cart newCart;
         if (cart.isEmpty()) {
             newCart = createCart(username);
@@ -106,6 +107,57 @@ public class CartServiceImpl implements CartService {
             newCart.setCourses(cartCourses);
             cartRepository.save(newCart);
             System.out.println(4);
+            return newCart;
+        } else {
+            return newCart;
+        }
+    }
+
+
+
+    @Override
+    public Cart clearCart(Long userId){
+        Optional<Cart> cart = cartRepository.findByUserId(userId);
+        List<Course> courses = new ArrayList<Course>();
+        Cart userCart = new Cart(); 
+        if(cart.isPresent()){
+            userCart = cart.get();
+            userCart.setCourses(courses);
+
+        }
+
+        cartRepository.save(userCart);
+        return userCart;
+    }
+
+
+    public Cart deleteFromCart(Long courseId, Long userId){
+        Optional<Cart> userCart = getByUserID(userId);
+        Cart newCart = new Cart();
+        if(userCart.isPresent()){
+            newCart = userCart.get();
+            System.out.print(1);
+        } else {
+            return newCart;
+        }
+        Optional<Course> course = courseService.findById(userId);
+        Course foundCourse;
+        System.out.print(2);
+        if(course.isPresent()){
+            foundCourse = course.get();
+            System.out.print(3);
+        } else {
+            return newCart;
+        }
+
+
+        List<Course> cartCourses = newCart.getCourses();
+        System.out.print(4);
+        if(cartCourses.contains(foundCourse)){
+            cartCourses.remove(foundCourse);
+            newCart.setCourses(cartCourses);
+            cartRepository.save(newCart);
+            System.out.print(4);
             return newCart;
         } else {
             return newCart;
