@@ -51,9 +51,6 @@ public class CartServiceImpl implements CartService {
         User cartUser = user.get();
         Long userID = cartUser.getId();
 
-        System.out.println(cartUser);
-        System.out.println(userID);
-
         Optional<Cart> cart = getByUserID(userID);
 
         Cart newCart;
