@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService {
         return cartRepository.getByUserID(userID);
     }
 
-
+    //creamos el carrito en caso de que no lo tenga
     @Override
     public Cart createCart(String username) {
         Optional<User> user = authService.getUserByUsername(username);
@@ -40,7 +40,7 @@ public class CartServiceImpl implements CartService {
         return newCart; 
     }
     
-
+    //añadimos el curso al carrito
     @Override
     public Cart addToCart(String username, String course) {
     
