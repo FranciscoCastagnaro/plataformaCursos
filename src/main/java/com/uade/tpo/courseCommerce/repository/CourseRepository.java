@@ -2,6 +2,7 @@ package com.uade.tpo.courseCommerce.repository;
 
 // Imports
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +21,9 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query(value = "SELECT c FROM Course c WHERE c.description = :description")
     List<Course> findByDescripcion(String description);
+
+    @Query(value = "SELECT c FROM Course c WHERE c.id =:id")
+    Optional<Course> findById(Long id);
+
 
 }

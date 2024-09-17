@@ -2,6 +2,7 @@ package com.uade.tpo.courseCommerce.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> findByDescripcion(String descripcion){
         return courseRepository.findByDescripcion(descripcion);
+    }
+
+    @Override
+    public Optional<Course> findById(Long id){
+        return courseRepository.findById(id);
     }
 
 

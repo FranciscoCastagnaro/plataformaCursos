@@ -1,6 +1,7 @@
 package com.uade.tpo.courseCommerce.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.uade.tpo.courseCommerce.entity.Course;
 import com.uade.tpo.courseCommerce.exception.DuplicatedCourseException;
@@ -18,5 +19,7 @@ public interface CourseService {
                              int maxSlots,
                              String teacher)
                             throws DuplicatedCourseException;
+
+    public Optional<Course> findById(Long id);
 
 }
