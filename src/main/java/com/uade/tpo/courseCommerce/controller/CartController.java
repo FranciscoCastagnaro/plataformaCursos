@@ -1,8 +1,10 @@
 package com.uade.tpo.courseCommerce.controller;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uade.tpo.courseCommerce.controller.request.AddToCartRequest;
 import com.uade.tpo.courseCommerce.entity.Cart;
 import com.uade.tpo.courseCommerce.service.CartService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -35,8 +36,14 @@ public class CartController {
     }
     
     @PostMapping("/add")
-    public ResponseEntity<Cart> addToCart(@RequestBody AddToCartRequest addToCartRequest) {
+    public ResponseEntity<Object> addToCart(@RequestBody AddToCartRequest addToCartRequest) {
         Cart newCart = cartService.addToCart(addToCartRequest.getUsername(), addToCartRequest.getCourse());
+
+        if (Objects.isNull(newCart)) {
+            String errorMessage = "User already has this course";
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
+        }
+
         return ResponseEntity.ok(newCart);
     }
     
@@ -54,7 +61,17 @@ public class CartController {
     }
 
 
+    @PostMapping("/confirm/{userId}")
+    public ResponseEntity<Object> confirmCart(@PathVariable Long userId) {
+        Cart cart = cartService.confirmCart(userId);
     
+        if (Objects.isNull(cart)) {
+            String errorMessage = "Cart not found or access forbidden for user with ID: " + userId;
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
+        }
+    
+        return ResponseEntity.ok(cart);
+    }
 
     
 }

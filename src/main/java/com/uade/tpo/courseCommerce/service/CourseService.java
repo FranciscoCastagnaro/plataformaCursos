@@ -22,4 +22,6 @@ public interface CourseService {
 
     public Optional<Course> findById(Long id);
 
+    public Course discountStock(String description);
+
 }

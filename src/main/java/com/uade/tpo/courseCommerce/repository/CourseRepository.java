@@ -22,6 +22,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query(value = "SELECT c FROM Course c WHERE c.description = :description")
     List<Course> findByDescripcion(String description);
 
+    @Override
     @Query(value = "SELECT c FROM Course c WHERE c.id =:id")
     Optional<Course> findById(Long id);
 

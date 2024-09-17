@@ -67,5 +67,32 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findById(id);
     }
 
+    @Override
+    public Course discountStock(String description) {
+
+        List<Course> foundCourse = findByDescripcion(description);
+
+        Course course;
+        if (!foundCourse.isEmpty()) {
+
+            course = foundCourse.getFirst();
+            int courseSlots = course.getAvailableSlots();
+
+            if (courseSlots == 0) return null;
+            
+            course.setAvailableSlots(courseSlots - 1);
+            courseRepository.save(course);
+
+        }else{
+
+            course = null;
+
+        }
+
+
+        return course;
+
+    }
+
 
 }

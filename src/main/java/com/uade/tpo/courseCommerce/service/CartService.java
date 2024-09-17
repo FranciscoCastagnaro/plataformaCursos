@@ -14,7 +14,8 @@ public interface CartService {
 
     public Cart deleteFromCart(Long courseId, Long userId);
 
-
     public Cart clearCart(Long userId);
+
+    public Cart confirmCart(Long userId);
 
 }
