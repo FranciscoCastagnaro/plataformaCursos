@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 // Data permite que nuestra clase disponga de getters y setters
 // sin necesidad de definirlos
 
-
 // Entity es un bean que representa una entidad
 // en nuestra base de datos
 // Clase @Entity -> Tabla
@@ -24,19 +23,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "courses")
 public class Course {
-    
-    public Course (String description,
-                  String startDate, 
-                  Category category, 
-                  int maxSlots,
-                  String teacher) 
-    {
+
+    public Course(String description,
+            String longDescription,
+            String startDate,
+            Category category,
+            int maxSlots,
+            String teacher) {
         this.description = description;
+        this.longDescription = longDescription;
         this.startDate = startDate;
         this.category = category;
         this.maxSlots = maxSlots;
-        this.availableSlots = maxSlots; 
+        this.availableSlots = maxSlots;
         this.teacher = teacher;
+        this.discount = 0;
     }
 
     @Id // Este atributo es mi primary key
@@ -45,6 +46,9 @@ public class Course {
 
     @Column
     private String description;
+
+    @Column
+    private String longDescription;
 
     @Column
     private String startDate;
@@ -62,6 +66,7 @@ public class Course {
     @Column
     private int availableSlots;
 
-
+    @Column
+    private int discount;
 
 }

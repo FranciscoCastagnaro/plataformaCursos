@@ -3,9 +3,11 @@ package com.uade.tpo.courseCommerce.entity.requestEntity;
 import lombok.Data;
 
 @Data
-public class RequestCourse {
+public class RequestCourseEdit {
 
     private String description;
+
+    private String newDescription;
 
     private String longDescription;
 

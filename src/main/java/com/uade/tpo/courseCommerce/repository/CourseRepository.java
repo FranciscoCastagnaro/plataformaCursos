@@ -15,7 +15,7 @@ import com.uade.tpo.courseCommerce.entity.Course;
 // Va a ser mi capa de persistencia (base de datos)
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
- 
+
     @Query(value = "SELECT c FROM Course c")
     List<Course> getCursos();
 
@@ -25,6 +25,5 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Override
     @Query(value = "SELECT c FROM Course c WHERE c.id =:id")
     Optional<Course> findById(Long id);
-
 
 }
