@@ -19,7 +19,8 @@ public interface CourseService {
                              String startDate, 
                              String category, 
                              int maxSlots,
-                             String teacher)
+                             String teacher,
+                             int price)
                             throws DuplicatedCourseException;
 
     public Optional<Course> findById(Long id);

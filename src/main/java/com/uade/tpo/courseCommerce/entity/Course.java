@@ -29,7 +29,8 @@ public class Course {
             String startDate,
             Category category,
             int maxSlots,
-            String teacher) {
+            String teacher,
+            int price) {
         this.description = description;
         this.longDescription = longDescription;
         this.startDate = startDate;
@@ -38,6 +39,7 @@ public class Course {
         this.availableSlots = maxSlots;
         this.teacher = teacher;
         this.discount = 0;
+        this.price = price;
     }
 
     @Id // Este atributo es mi primary key
@@ -68,5 +70,8 @@ public class Course {
 
     @Column
     private int discount;
+
+    @Column
+    private int price;
 
 }

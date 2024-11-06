@@ -17,4 +17,6 @@ public class RequestCourse {
 
     private String teacher;
 
+    private int price;
+
 }

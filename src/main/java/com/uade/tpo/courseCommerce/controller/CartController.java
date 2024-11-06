@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uade.tpo.courseCommerce.controller.request.AddToCartRequest;
+import com.uade.tpo.courseCommerce.controller.request.UsernameRequest;
 import com.uade.tpo.courseCommerce.entity.Cart;
 import com.uade.tpo.courseCommerce.service.CartService;
 
@@ -28,12 +29,12 @@ public class CartController {
     CartService cartService;
 
 
-    @GetMapping("/{userID}")
-    public ResponseEntity<Cart> getCartByUserID(@PathVariable Long userID) {
-        Optional<Cart> result = cartService.getByUserID(userID);
+    @GetMapping
+    public ResponseEntity<Cart> getCartByUsername(@RequestBody UsernameRequest username) {
+        Optional<Cart> result = cartService.getByUsername(username.getUsername());
         if (result.isPresent()) return ResponseEntity.ok(result.get());
         return ResponseEntity.noContent().build();
-    }
+    } 
     
     @PostMapping("/add")
     public ResponseEntity<Object> addToCart(@RequestBody AddToCartRequest addToCartRequest) {
@@ -47,26 +48,26 @@ public class CartController {
         return ResponseEntity.ok(newCart);
     }
     
-    @DeleteMapping("/remove/{userId}/{courseId})")
-    public ResponseEntity<Cart> deleteFromCart(@PathVariable Long userId,@PathVariable Long courseId){
-        Cart newCart = cartService.deleteFromCart(courseId,userId);
+    @DeleteMapping("/remove")
+    public ResponseEntity<Cart> deleteFromCart(@RequestBody AddToCartRequest addToCartRequest){
+        Cart newCart = cartService.deleteFromCart(addToCartRequest.getCourse(),addToCartRequest.getUsername());
         return ResponseEntity.ok(newCart);
     }
 
 
-    @DeleteMapping("/clear/{userId}")
-    public ResponseEntity<Cart> clearCart(@PathVariable Long userId){
-        Cart newCart = cartService.clearCart(userId);
+    @DeleteMapping("/clear")
+    public ResponseEntity<Cart> clearCart(@RequestBody UsernameRequest username){
+        Cart newCart = cartService.clearCart(username.getUsername());
         return ResponseEntity.ok(newCart);
     }
 
 
-    @PostMapping("/confirm/{userId}")
-    public ResponseEntity<Object> confirmCart(@PathVariable Long userId) {
-        Cart cart = cartService.confirmCart(userId);
+    @PostMapping("/confirm")
+    public ResponseEntity<Object> confirmCart(@RequestBody UsernameRequest username) {
+        Cart cart = cartService.confirmCart(username.getUsername());
     
         if (Objects.isNull(cart)) {
-            String errorMessage = "Cart not found or access forbidden for user with ID: " + userId;
+            String errorMessage = "Cart not found or access forbidden for user with ID: " + username;
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
         }
     

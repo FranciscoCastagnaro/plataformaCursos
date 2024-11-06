@@ -22,6 +22,7 @@ public class Cart {
 
     public Cart(){
         this.courses = new ArrayList<Course>();
+        this.total = 0;
     }
 
     public Cart(User user){
@@ -45,6 +46,9 @@ public class Cart {
         inverseJoinColumns = @JoinColumn(name = "course_id") 
     )
     private List<Course> courses;
+
+    @Column
+    private int total;
 
 }
 

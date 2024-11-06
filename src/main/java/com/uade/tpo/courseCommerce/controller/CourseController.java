@@ -44,7 +44,8 @@ public class CourseController {
                 course.getStartDate(),
                 course.getCategory(),
                 course.getMaxSlots(),
-                course.getTeacher()));
+                course.getTeacher(),
+                course.getPrice()));
     }
 
     @DeleteMapping

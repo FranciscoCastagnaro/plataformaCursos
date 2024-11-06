@@ -32,8 +32,15 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public Optional<Cart> getByUserID(Long userID) {
+    public Optional<Cart> getByUserId(Long userID) {
         return cartRepository.findByUserId(userID);
+    }
+
+
+    public Optional<Cart> getByUsername(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if(!user.isPresent()) return null;
+        return cartRepository.findByUserId(user.get().getId());
     }
 
     //creamos el carrito en caso de que no lo tenga
@@ -49,11 +56,16 @@ public class CartServiceImpl implements CartService {
     //añadimos el curso al carrito
     @Override
     public Cart addToCart(String username, String course) {
-    
         List<Course> foundCourse = courseService.findByDescripcion(course);
+
+        if(foundCourse.isEmpty()) return null;
+        Course newCourse = foundCourse.getFirst();
+
         Optional<User> user = authService.getUserByUsername(username);
 
+
         User cartUser = user.get();
+        
         Long userID = cartUser.getId();
         
         List<Course> userCourses = cartUser.getCourses();
@@ -64,7 +76,7 @@ public class CartServiceImpl implements CartService {
 
         }
 
-        Optional<Cart> cart = getByUserID(userID);
+        Optional<Cart> cart = getByUserId(userID);
 
         Cart newCart;
         if (cart.isEmpty()) {
@@ -75,9 +87,10 @@ public class CartServiceImpl implements CartService {
 
 
         List<Course> courses = newCart.getCourses();
-        if(!courses.contains(foundCourse.getFirst())){
-            courses.add(foundCourse.get(0));
+        if(!courses.contains(newCourse)){
+            courses.add(newCourse);
             newCart.setCourses(courses);
+            newCart.setTotal(newCart.getTotal() + (int)(newCourse.getPrice() * (1 - (newCourse.getDiscount() / 100.0))));
             cartRepository.save(newCart);
             return newCart;
         }
@@ -86,19 +99,18 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart deleteFromCart(Long courseId, Long userId){
-        Optional<Cart> userCart = getByUserID(userId);
+    public Cart deleteFromCart(String courseDescription, String username){
+        Optional<Cart> userCart = getByUsername(username);
         Cart newCart = new Cart();
         if(userCart.isPresent()){
             newCart = userCart.get();
         } else {
             return newCart;
         }
-        Optional<Course> course = courseService.findById(userId);
+        List<Course> course = courseService.findByDescripcion(courseDescription);
         Course foundCourse;
-        System.out.println(2);
-        if(course.isPresent()){
-            foundCourse = course.get();
+        if(!course.isEmpty()){
+            foundCourse = course.getFirst();
         } else {
             return newCart;
         }
@@ -109,6 +121,8 @@ public class CartServiceImpl implements CartService {
             cartCourses.remove(foundCourse);
             newCart.setCourses(cartCourses);
             cartRepository.save(newCart);
+            newCart.setTotal(newCart.getTotal() - (int)(foundCourse.getPrice() * (1 - (foundCourse.getDiscount() / 100.0))));
+            cartRepository.save(newCart);
             return newCart;
         } else {
             return newCart;
@@ -116,8 +130,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart clearCart(Long userId){
-        Optional<Cart> cart = cartRepository.findByUserId(userId);
+    public Cart clearCart(String username){
+        Optional<Cart> cart = getByUsername(username);
         List<Course> courses = new ArrayList<>();
         Cart userCart = new Cart(); 
         if(cart.isPresent()){
@@ -125,16 +139,16 @@ public class CartServiceImpl implements CartService {
             userCart.setCourses(courses);
 
         }
-
+        userCart.setTotal(0);
         cartRepository.save(userCart);
         return userCart;
     }
 
     @Override
-    public Cart confirmCart(Long userId) {
+    public Cart confirmCart(String username) {
 
-        Optional<Cart> cart = cartRepository.findByUserId(userId);
-        Optional<User> user = userRepository.findById(userId);
+        Optional<Cart> cart = getByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
 
         if (!user.isPresent()) return null;
         User confirmedUser = user.get();
@@ -159,7 +173,7 @@ public class CartServiceImpl implements CartService {
 
             }
 
-            clearCart(userId);
+            clearCart(username);
 
         } else {
             return null;

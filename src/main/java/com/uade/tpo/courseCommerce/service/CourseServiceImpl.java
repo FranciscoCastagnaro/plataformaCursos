@@ -36,7 +36,8 @@ public class CourseServiceImpl implements CourseService {
             String startDate,
             String category,
             int maxSlots,
-            String teacher)
+            String teacher,
+            int price)
             throws DuplicatedCourseException {
 
         List<Course> foundedCourses = courseRepository.findByDescripcion(description);
@@ -52,7 +53,7 @@ public class CourseServiceImpl implements CourseService {
             newCategory = foundedCategory.getFirst();
         }
 
-        var newCurso = new Course(description, longDescription, startDate, newCategory, maxSlots, teacher);
+        var newCurso = new Course(description, longDescription, startDate, newCategory, maxSlots, teacher,price);
         courseRepository.save(newCurso);
         return newCurso;
 
