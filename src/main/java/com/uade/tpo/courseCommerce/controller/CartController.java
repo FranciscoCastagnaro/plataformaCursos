@@ -1,11 +1,14 @@
 package com.uade.tpo.courseCommerce.controller;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uade.tpo.courseCommerce.controller.request.AddToCartRequest;
 import com.uade.tpo.courseCommerce.entity.Cart;
+import com.uade.tpo.courseCommerce.entity.Course;
 import com.uade.tpo.courseCommerce.service.CartService;
 
 
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("cart")
 public class CartController {
@@ -27,12 +31,14 @@ public class CartController {
     @Autowired
     CartService cartService;
 
-
     @GetMapping("/{userID}")
-    public ResponseEntity<Cart> getCartByUserID(@PathVariable Long userID) {
+    public ResponseEntity<?> getCartByUserID(@PathVariable Long userID) {
         Optional<Cart> result = cartService.getByUserID(userID);
-        if (result.isPresent()) return ResponseEntity.ok(result.get());
-        return ResponseEntity.noContent().build();
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                             .body(Map.of("message", "Cart not found"));
     }
     
     @PostMapping("/add")
@@ -47,7 +53,7 @@ public class CartController {
         return ResponseEntity.ok(newCart);
     }
     
-    @DeleteMapping("/remove/{userId}/{courseId})")
+    @DeleteMapping("/remove/{userId}/{courseId}")
     public ResponseEntity<Cart> deleteFromCart(@PathVariable Long userId,@PathVariable Long courseId){
         Cart newCart = cartService.deleteFromCart(courseId,userId);
         return ResponseEntity.ok(newCart);
@@ -73,5 +79,11 @@ public class CartController {
         return ResponseEntity.ok(cart);
     }
 
+    @GetMapping("/confirmed/{userID}")
+    public ResponseEntity<?> gerCoursesByUserID(@PathVariable Long userID) {
+        List<Course> list = cartService.getUserCourses(userID);
+        return ResponseEntity.ok(list);
+    }
     
+
 }

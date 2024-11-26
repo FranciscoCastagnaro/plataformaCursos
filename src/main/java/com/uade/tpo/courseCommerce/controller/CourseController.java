@@ -62,4 +62,5 @@ public class CourseController {
         return ResponseEntity.ok(courseService.setDiscount(course.getDescription(), course.getDiscount()));
     }
 
+
 }

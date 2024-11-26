@@ -1,8 +1,10 @@
 package com.uade.tpo.courseCommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.uade.tpo.courseCommerce.entity.Cart;
+import com.uade.tpo.courseCommerce.entity.Course;
 
 public interface CartService {
 
@@ -17,5 +19,7 @@ public interface CartService {
     public Cart clearCart(Long userId);
 
     public Cart confirmCart(Long userId);
+
+    public List<Course> getUserCourses(Long userID);
 
 }

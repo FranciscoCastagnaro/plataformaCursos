@@ -158,11 +158,18 @@ public class CourseServiceImpl implements CourseService {
                 editCourse.setCategory(newCategory);
             }
 
-            if (!"".equals(course.getNewDescription())) editCourse.setDescription(course.getNewDescription());
-            if (!"".equals(course.getLongDescription())) editCourse.setLongDescription(course.getLongDescription());
-            if (!"".equals(course.getStartDate())) editCourse.setStartDate(course.getStartDate());
-            if (!"".equals(course.getTeacher())) editCourse.setTeacher(course.getTeacher());
-            if (0!=course.getMaxSlots()) editCourse.setMaxSlots(course.getMaxSlots());
+            if (!"".equals(course.getNewDescription()))
+                editCourse.setDescription(course.getNewDescription());
+            if (!"".equals(course.getLongDescription()))
+                editCourse.setLongDescription(course.getLongDescription());
+            if (!"".equals(course.getStartDate()))
+                editCourse.setStartDate(course.getStartDate());
+            if (!"".equals(course.getTeacher()))
+                editCourse.setTeacher(course.getTeacher());
+            if (0 != course.getMaxSlots())
+                editCourse.setMaxSlots(course.getMaxSlots());
+            if (0 != course.getMaxSlots())
+                editCourse.setAvailableSlots(course.getMaxSlots());
 
             courseRepository.save(editCourse);
 
